@@ -25,7 +25,7 @@ function Movies() {
     useEffect(() => {
         const fetchMovies = async () => {
             try {
-                const res = await fetch(`https://www.omdbapi.com/?apikey=${process.env.NEXT_PUBLIC_OMDB_API_KEY}&s=${search}`)
+                const res = await fetch(`https://www.omdbapi.com/?apikey=$afafbc0e&s=${search}`);
                 const data = await res.json()
 
                 if (data.Response === "True") {
