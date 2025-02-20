@@ -2,6 +2,9 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
 import Image from 'next/image'
+import { Button } from '@/components/ui/button';
+
+import { useToast } from '@/hooks/use-toast';
 
 
 interface MyMovie{
@@ -23,6 +26,8 @@ function SingleMovie() {
     const {movie} = useParams()
     const [singleMovie,setSingleMovie] = useState <MyMovie | null>  (null)
     // const [rating,setRating] = useState(singleMovie?.imdbRating)
+
+const {toast} = useToast();
 
 useEffect(()=>{
     const fetchSingleMovie = async ()=>{
@@ -56,8 +61,40 @@ return stars;
 
 }
 
+
+const savedMovie = ()=>{
+
+
+
+
+  let favourites = JSON.parse(localStorage.getItem('favs') || "[]")
+if(!Array.isArray(favourites)){
+  favourites =[]
+};
+
+
+if(!favourites.some((movie:MyMovie)=> movie.Title === singleMovie.Title)){
+  favourites.push(singleMovie)
+  localStorage.setItem('favs',JSON.stringify(favourites))
+  console.log(`${singleMovie.Title} saved`);
+  toast({
+    title:'Added to Favorites',
+    description:`${singleMovie.Title} Added To FAvorites`
+  })
+
+}else{
+
+  console.log(`${singleMovie.Title} already saved`);
+  toast({
+    title:'Already Exists',
+    description:`${singleMovie.Title} Alredy Exists`
+  })
+  
+}  
+}
+
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-900 text-white p-4">
+    <div className="flex items-center w-full justify-center min-h-screen bg-gray-900 text-white p-4 w-screen">
     <div className="max-w-5xl xl:max-w-6xl w-full bg-gray-800 rounded-lg shadow-lg p-6 xl:p-10">
       {/* Movie Poster & Details */}
       <div className="flex flex-col md:flex-row items-center md:items-start gap-6 xl:gap-12">
@@ -89,13 +126,18 @@ return stars;
                     <span key={index} className="text-yellow-400 text-lg max-sm:pb-7 ">{star}</span>
                   ))}
                 </div>
-           
-          </div>
          
+          </div>
+          <div className=' items-center justify-center flex text-black'>
+
+          <Button onClick={savedMovie} className=' font-bold text-' variant={'outline'}>Add To Favourites</Button>
+          </div>
+       
         </div>
         
       </div>
     </div>
+  
   </div>
   )
 }
