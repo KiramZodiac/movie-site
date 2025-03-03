@@ -1,5 +1,6 @@
 'use client'
 import { Input } from '@/components/ui/input'
+
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { ChangeEvent, useEffect, useState } from 'react'
@@ -18,7 +19,7 @@ interface RandomBanner {
 }
 
 function Movies() {
-    const initialValue = 'batman';
+    const initialValue = 'comedy';
     const [movies, setMovies] = useState([]);
     const [search, setSearch] = useState(initialValue);
     const [noMovies, setNoMovies] = useState('Loading...');
@@ -61,7 +62,6 @@ function Movies() {
             }
         }
 
-        
         const intervalId = setInterval(() => {
             getRandomBanner()
         }, 5000);
@@ -70,12 +70,14 @@ function Movies() {
 
     }, [search]);
 
+
+
     return (
-        <div className='min-h-screen bg-gray-900 text-white p-4'>
+        <div className='min-h-screen bg-gray-900 text-white p-4 flex flex-col'>
+          
             {randomBanner && randomBanner.Poster && (
                 <div
-                    
-                style={{
+                    style={{
                         backgroundImage: `url(${randomBanner.Poster})`,
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
@@ -83,14 +85,13 @@ function Movies() {
                         width: '100%',
                         transition: 'background-image 1s ease-in-out', 
                     }}
-
                     className="random-movie-banner"
                 >
                     {isLoading && <p>Loading...</p>} 
                 </div>
             )}
 
-            <div className='container mx-auto'>
+            <div className='container mx-auto '>
                 <div className='w-full md:w-[50%] flex justify-center items-center mx-auto mt-4 mb-10'>
                     <Input 
                         className='font-bold p-2 text-black bg-white rounded-md'
@@ -100,6 +101,7 @@ function Movies() {
                 </div>
 
                 {movies.length > 0 ? (
+              
                     <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6'>
                         {movies.map((movie: MovieTypes) => (
                             <div
@@ -122,6 +124,7 @@ function Movies() {
                             </div>
                         ))}
                     </div>
+                 
                 ) : (
                     <p className='text-center text-lg text-gray-400 mt-10'>{noMovies}</p>
                 )}

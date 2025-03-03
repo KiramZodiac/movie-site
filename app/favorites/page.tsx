@@ -102,7 +102,7 @@ console.log(`${imdbID} removed`);
                 </p>
               </div>
 
-              {/* Remove Button */}
+    
               <div className="flex justify-start mt-4">
                 <Button
 onClick={()=> {
@@ -125,10 +125,6 @@ onClick={()=> {
       </div>
     )}
   </div>
-
-
-
-    
   )}
 
 

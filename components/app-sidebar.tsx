@@ -1,45 +1,50 @@
-import {  Home,Heart, Settings } from "lucide-react"
+"use client";
 
+import { Home, Heart, Settings, ChevronUp, User2 } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from "@/components/ui/dropdown-menu"; 
+import { signIn, signOut, useSession } from "next-auth/react";
 
-
-// Menu items.
 const items = [
   {
     title: "Home",
     url: "/",
     icon: Home,
   },
-{title:"Favorites",
-    url:'/favorites',
-    icon:Heart
-},
-
+  {
+    title: "Favorites",
+    url: "/favorites",
+    icon: Heart,
+  },
   {
     title: "Settings",
     url: "#",
     icon: Settings,
   },
-]
+];
 
 export default function AppSidebar() {
-  return (
-    <Sidebar>
+  const { data: session } = useSession(); 
 
+  return (
+    <Sidebar className="">
       <SidebarContent>
         <SidebarGroup>
-
-
-          
           <SidebarGroupLabel>Movie Land</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
@@ -57,6 +62,31 @@ export default function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+
+      <SidebarFooter>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <SidebarMenuButton>
+                  <User2 /> {session ? session.user?.name : "Guest"}
+                  <ChevronUp className="ml-auto" />
+                </SidebarMenuButton>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent side="top" className="w-[--radix-popper-anchor-width]">
+                {session ? (
+                  <>
+                    <DropdownMenuItem>{session.user?.name}</DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => signOut()}>Sign Out</DropdownMenuItem>
+                  </>
+                ) : (
+                  <DropdownMenuItem onClick={() => signIn()}>Sign In</DropdownMenuItem>
+                )}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarFooter>
     </Sidebar>
-  )
+  );
 }
