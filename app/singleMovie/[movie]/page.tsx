@@ -5,8 +5,8 @@ import Image from 'next/image'
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
 import Loading from '@/app/Loading';
+import { signIn,} from "next-auth/react";
 
 
 
@@ -31,7 +31,7 @@ interface MyMovie{
 
 function SingleMovie() {
   const {data:session} = useSession()
-  const router = useRouter()
+  
     const {movie} = useParams()
     const [singleMovie,setSingleMovie] = useState <MyMovie | null>  (null)
     // const [rating,setRating] = useState(singleMovie?.imdbRating)
@@ -90,7 +90,7 @@ if(!Array.isArray(favourites)){
 
 if(!session){
 
-   router.push('http://localhost:3000/api/auth/signin?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2F')
+   signIn()
    return null
 
 } else{
@@ -123,6 +123,7 @@ if(!session){
   }
 
 }
+
 
   return (
     <div className="flex items-center  justify-center min-h-screen bg-gray-900 text-white p-4 w-screen">
