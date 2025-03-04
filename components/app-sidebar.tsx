@@ -1,6 +1,6 @@
 "use client";
 
-import { Home, Heart, Settings, ChevronUp, User2 } from "lucide-react";
+import { Home, Heart, Settings, ChevronUp, User2} from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -19,7 +19,7 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu"; 
 import { signIn, signOut, useSession } from "next-auth/react";
-
+import Image from "next/image";
 const items = [
   {
     title: "Home",
@@ -63,14 +63,16 @@ export default function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
 
-      <SidebarFooter>
+      <SidebarFooter className="">
         <SidebarMenu>
           <SidebarMenuItem>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <SidebarMenuButton>
-                  <User2 /> {session ? session.user?.name : "Guest"}
-                  <ChevronUp className="ml-auto" />
+                <SidebarMenuButton className=" h-10">
+                  {session?.user?.image ?(<Image className=" rounded-full w-10 h-10" alt="test" src={session?.user?.image} height={300} width={300}/>):( <User2/>)}
+               
+                   {session ? session.user?.name : "Guest"}
+                  <ChevronUp className="ml-auto"/>
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
               <DropdownMenuContent side="top" className="w-[--radix-popper-anchor-width]">

@@ -19,7 +19,14 @@ interface RandomBanner {
 }
 
 function Movies() {
-    const initialValue = 'comedy';
+const randomTitles = ['comedy','batman','sex','horror','romance','action']
+const randomIndex = Math.floor(Math.random()* randomTitles.length)
+let randTitle = randomTitles[randomIndex]
+
+
+
+
+    const initialValue = randTitle
     const [movies, setMovies] = useState([]);
     const [search, setSearch] = useState(initialValue);
     const [noMovies, setNoMovies] = useState('Loading...');

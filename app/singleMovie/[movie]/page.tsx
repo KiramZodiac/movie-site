@@ -126,7 +126,7 @@ if(!session){
 
 
   return (
-    <div className="flex items-center  justify-center min-h-screen bg-gray-900 text-white p-4 w-screen">
+    <div className="flex items-center  justify-center min-h-screen bg-gray-900 text-white p-4 ">
     <div className="max-w-5xl xl:max-w-6xl w-full bg-gray-800 rounded-lg shadow-lg p-6 xl:p-10">
 
       <div className="flex flex-col md:flex-row items-center md:items-start gap-6 xl:gap-12">
@@ -139,7 +139,7 @@ if(!session){
         />
           <div className="flex flex-col space-y-4 xl:space-y-6">
            <h1 className="text-2xl md:text-3xl xl:text-4xl font-bold">{singleMovie.Title}</h1>
-            <p className="text-gray-300 text-lg xl:text-xl">{singleMovie.Plot}</p>
+            <p className="text-gray-300 text-lg xl:text-xl ">{singleMovie.Plot}</p>
             <div className="grid grid-cols-2 gap-4 md:gap-6 xl:gap-8 text-sm md:text-base xl:text-lg text-gray-400">
             <p><span className="font-semibold text-white">Year:</span> {singleMovie.Year}</p>
             <p><span className="font-semibold text-white">Rated:</span> {singleMovie.Rated}</p>
