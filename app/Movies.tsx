@@ -21,7 +21,7 @@ interface RandomBanner {
 function Movies() {
 const randomTitles = ['comedy','batman','sex','horror','romance','action']
 const randomIndex = Math.floor(Math.random()* randomTitles.length)
-let randTitle = randomTitles[randomIndex]
+const randTitle = randomTitles[randomIndex]
 
 
 
